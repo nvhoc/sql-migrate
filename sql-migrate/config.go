@@ -78,6 +78,8 @@ func GetEnvironment() (*Environment, error) {
 		env.Dir = "migrations"
 	}
 
+	env.Dir = os.ExpandEnv(env.Dir)
+
 	if env.TableName != "" {
 		migrate.SetTable(env.TableName)
 	}
