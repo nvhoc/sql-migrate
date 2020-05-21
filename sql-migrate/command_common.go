@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/rubenv/sql-migrate"
 )
@@ -34,7 +35,8 @@ func ApplyMigrations(dir migrate.MigrationDirection, dryrun bool, limit int) err
 		n, err := migrate.ExecMax(db, dialect, source, dir, limit)
 		if err != nil {
 			fmt.Errorf("Migration failed: %s", err)
-			panic("can not connect")
+			os.Exit(1)
+			return err
 		}
 
 		if n == 1 {
